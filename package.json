@@ -12,6 +12,8 @@
     "vite": "^4.1.0"
   },
   "dependencies": {
-    "@webcontainer/api": "^1.1.3"
+    "@codemirror/lang-javascript": "^6.1.5",
+    "@webcontainer/api": "^1.1.3",
+    "codemirror": "^6.0.1"
   }
 }
