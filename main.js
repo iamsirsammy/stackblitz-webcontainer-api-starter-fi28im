@@ -7,25 +7,25 @@ var sysPromptMain = `You are a code AI assistant, CodeGPT. The user will give yo
 2. The user is programming in ` + codeLang + " but has a mostly " + userLang + " background. Replace " + userLang + " functions with " + codeLang + ` ones, and fix syntax issues.
 Send the modified code to the user in plaintext without any additional information or explanation (unless it is in comments.) Do not put it in a codeblock. If you fundamentally cannot follow the user's instructions, *then* you can explain why you can't.`;
 
-sysPromptAlt = `You are a code AI assistant, CodeGPT. The user will give you code and you will change that code using these guidelines:
+var sysPromptAlt = `You are a code AI assistant, CodeGPT. The user will give you code and you will change that code using these guidelines:
 1. If you see text enclosed with [] inside a comment, replace the comment with code following the text.
-2. The user is programming in ` + codelang + `. Fix any syntax issues or other errors.
+2. The user is programming in ` + codeLang + `. Fix any syntax issues or other errors.
 Send the modified code to the user in plaintext without any additional information or explanation (unless it is in comments.) Do not put it in a codeblock. If you fundamentally cannot follow the user's instructions, *then* you can explain why you can't.`;
 
 
 function feedToGPT(view) {
   console.log(view.state.doc.toString());
-	const thingy = '{"model":"gpt-3.5-turbo","messages":[{"role":"system","content":"' + JSON.stringify(sysPromptMain) + '"},{"role":"user","content":"' + JSON.stringify(view.state.doc.toString()) + '"}]}'
+	const thingy = '{"model":"gpt-3.5-turbo","messages":[{"role":"system","content":' + JSON.stringify(sysPromptMain) + '},{"role":"user","content":' + JSON.stringify(view.state.doc.toString()) + '}]}'
 	console.log(thingy)
 	gpt(userKey, thingy)
 	.then((text) => {
     // handle the plaintext result here
-    console.log(text);
+    console.log(JSON.stringify(text));
 		const transaction = view.state.update({ // create a new transaction
     changes: { // set the entire file content to "Hello world"
       from: 0,
       to: view.state.doc.length,
-      insert: "Hello world"
+      insert: text.choices[0].message.content
     }
   });
   view.dispatch(transaction); // apply the transaction to the view
@@ -61,6 +61,6 @@ async function gpt(apiKey, msgs) {
     "method": "POST",
     "mode": "cors",
 });
-	const text = await response.text();
+	const text = await response.json();
   return text;
 }
