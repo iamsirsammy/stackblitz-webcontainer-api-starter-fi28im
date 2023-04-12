@@ -1,6 +1,8 @@
 import {basicSetup, EditorView} from "codemirror"
 import {keymap} from "@codemirror/view"
 import {dracula} from "thememirror"
+import {indentationMarkers} from "@replit/codemirror-indentation-markers"
+import {vscodeKeymap} from "@replit/codemirror-vscode-keymap"
 var codeLang = "Javascript";
 var userLang = "Python";
 var sysPromptMain = `You are a code AI assistant, CodeGPT. The user will give you code and you will change that code using these guidelines:
@@ -36,9 +38,11 @@ function feedToGPT(view) {
 var editorview = new EditorView({
   doc: "",
   extensions: [
+    keymap.of(vscodeKeymap),
     keymap.of([{key: "Alt-l", run: feedToGPT}]),
     basicSetup,
-    dracula
+    dracula,
+    indentationMarkers() // replit niceity
   ],
   parent: document.body
 })
