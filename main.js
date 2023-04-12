@@ -1,5 +1,6 @@
 import {basicSetup, EditorView} from "codemirror"
 import {keymap} from "@codemirror/view"
+import {dracula} from "thememirror"
 var codeLang = "Javascript";
 var userLang = "Python";
 var sysPromptMain = `You are a code AI assistant, CodeGPT. The user will give you code and you will change that code using these guidelines:
@@ -33,10 +34,11 @@ function feedToGPT(view) {
 }
 
 var editorview = new EditorView({
-  doc: "a\nb\nc\n",
+  doc: "",
   extensions: [
     keymap.of([{key: "Alt-l", run: feedToGPT}]),
     basicSetup,
+    dracula
   ],
   parent: document.body
 })
