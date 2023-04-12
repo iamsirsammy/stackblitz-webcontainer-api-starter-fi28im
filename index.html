@@ -1,4 +1,31 @@
-<!doctype html>
-<meta charset=utf8>
-<h1>CodeMirror!</h1>
-<script type="module" src="main.js"></script>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Love Sentence</title>
+    <style>
+      input,
+      button {
+        display: inline-block;
+        vertical-align: middle;
+      }
+    </style>
+    <script type="text/javascript">
+      function printLoveSentence() {
+        var firstPerson = document.getElementById('first-person').value;
+        var secondPerson = document.getElementById('second-person').value;
+        console.log(firstPerson + ' loves ' + secondPerson);
+      }
+    </script>
+  </head>
+  <body>
+    <h1>CodeMirror!</h1>
+    <h1>Love Sentence</h1>
+    <label for="first-person">I'm making a </label>
+    <input type="text" id="first-person" />
+    <label for="second-person"> program but I mostly know </label>
+    <input type="text" id="second-person" />
+    <label>. (It doesn't really matter what you put for the second one, just put python if you're writing in a semicolon language so you can forget about semicolons or smthn)</label>
+    <button onclick="printLoveSentence()">Print Love Sentence</button>
+    <script type="module" src="main.js"></script>
+  </body>
+</html>
