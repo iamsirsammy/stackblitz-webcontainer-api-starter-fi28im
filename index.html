@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Love Sentence</title>
+    <title>ChatGPT + CodeMirror!</title>
     <style>
       input,
       button {
@@ -9,23 +9,26 @@
         vertical-align: middle;
       }
     </style>
-    <script type="text/javascript">
-      function printLoveSentence() {
-        var firstPerson = document.getElementById('first-person').value;
-        var secondPerson = document.getElementById('second-person').value;
-        console.log(firstPerson + ' loves ' + secondPerson);
-      }
-    </script>
   </head>
   <body>
-    <h1>CodeMirror!</h1>
-    <h1>Love Sentence</h1>
-    <label for="first-person">I'm making a </label>
-    <input type="text" id="first-person" />
-    <label for="second-person"> program but I mostly know </label>
-    <input type="text" id="second-person" />
+    <h1>ChatGPT + CodeMirror!</h1>
+    <p>
+      Alpha 1
+      Instructions:
+      First, enter your OpenAI API key. We are not able to see this. You can get one from https://platform.openai.com/account/api-keys (Blocked on chromebooks.)
+      Then, fill out the sentence below. If you leave the second language blank, it should use a slightly different prompt, but this is not fully tested. We reccomend using something.
+      Press Alt + L to trigger the AI, changing your code.
+      Use [] in a comment in either language to indicate code that you want the AI to make or change. It can be as complicated or simple as you want.
+      ChatGPT will try to follow your directions, fix errors and translate the second language to the first. If it makes a mistake, you can press Ctrl + Z to undo and then change your code or press Alt + L again.\
+      Although this has many features of modern code editors, like indentation, dark mode and full undo history, it does not currently have features like saving (you have to copy it yourself), syntax highlighting (coming soon!), linting, or code running. These will all be added.
+    </p>
+    <label for="codelang">I'm making a </label>
+    <input type="text" id="codelang" value="Javascript"/>
+    <label for="userlang"> program but I mostly know </label>
+    <input type="text" id="userlang" value="Python"/>
     <label>. (It doesn't really matter what you put for the second one, just put python if you're writing in a semicolon language so you can forget about semicolons or smthn)</label>
-    <button onclick="printLoveSentence()">Print Love Sentence</button>
+    <label>
+    <!--<button onclick="printLoveSentence()">Print Love Sentence</button>-->
     <script type="module" src="main.js"></script>
   </body>
 </html>

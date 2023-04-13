@@ -5,19 +5,26 @@ import {indentationMarkers} from "@replit/codemirror-indentation-markers"
 import {vscodeKeymap} from "@replit/codemirror-vscode-keymap"
 var codeLang = "Javascript";
 var userLang = "Python";
-var sysPromptMain = `You are a code AI assistant, CodeGPT. The user will give you code and you will change that code using these guidelines:
-1. If you see text enclosed with [] inside a comment, replace the comment with code following the text.
-2. The user is programming in ` + codeLang + " but has a mostly " + userLang + " background. Replace " + userLang + " functions with " + codeLang + ` ones, and fix syntax issues.
-Send the modified code to the user in plaintext without any additional information or explanation (unless it is in comments.) Do not put it in a codeblock. If you fundamentally cannot follow the user's instructions, *then* you can explain why you can't.`;
-
-var sysPromptAlt = `You are a code AI assistant, CodeGPT. The user will give you code and you will change that code using these guidelines:
-1. If you see text enclosed with [] inside a comment, replace the comment with code following the text.
-2. The user is programming in ` + codeLang + `. Fix any syntax issues or other errors.
-Send the modified code to the user in plaintext without any additional information or explanation (unless it is in comments.) Do not put it in a codeblock. If you fundamentally cannot follow the user's instructions, *then* you can explain why you can't.`;
 
 
 function feedToGPT(view) {
+  var codeLang = document.getElementById('codelang').value;
+  var userLang = document.getElementById('userlang').value;
+  var sysPromptMain = `You are a code AI assistant, CodeGPT. The user will give you code and you will change that code using these guidelines:
+1. If you see text enclosed with [] inside a comment, replace the comment with code following the text.
+2. The user is programming in ` + codeLang + " but has a mostly " + userLang + " background. Replace " + userLang + " functions with " + codeLang + ` ones, and fix syntax issues.
+Send the modified code to the user in plaintext without any additional information or explanation (unless it is in comments.) Do not put it in a codeblock. If you fundamentally cannot follow the user's instructions, *then* you can explain why you can't.`;
+  var sysPromptAlt = `You are a code AI assistant, CodeGPT. The user will give you code and you will change that code using these guidelines:
+1. If you see text enclosed with [] inside a comment, replace the comment with code following the text.
+2. The user is programming in ` + codeLang + `. Fix any syntax issues or other errors.
+Send the modified code to the user in plaintext without any additional information or explanation (unless it is in comments.) Do not put it in a codeblock. If you fundamentally cannot follow the user's instructions, *then* you can explain why you can't.`;
   console.log(view.state.doc.toString());
+  if (userLang == "") {
+    var usedPrompt = sysPromptAlt;
+  }
+  else {
+    var usedPrompt = sysPromptMain;
+  }
 	const thingy = '{"model":"gpt-3.5-turbo","messages":[{"role":"system","content":' + JSON.stringify(sysPromptMain) + '},{"role":"user","content":' + JSON.stringify(view.state.doc.toString()) + '}]}'
 	console.log(thingy)
 	gpt(userKey, thingy)
